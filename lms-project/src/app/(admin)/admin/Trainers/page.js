@@ -1,7 +1,7 @@
-export default function Trainers() {
-  return (
-    <div>
-      <h1>Trainers</h1>
-    </div>
-  );
-}
+import React from "react";
+
+const Trainers = () => {
+  return <div>Trainers</div>;
+};
+
+export default Trainers;

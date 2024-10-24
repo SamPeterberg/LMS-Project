@@ -1,6 +1,6 @@
 export default function Batches() {
   return (
-    <div>
+    <div className="text-4xl font-extrabold">
       <h1>Batches</h1>
     </div>
   );

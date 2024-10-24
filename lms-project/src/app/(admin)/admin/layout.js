@@ -3,7 +3,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/app/components/ui/Tab";
+} from "@/app/components/ui/Tabs";
 import Link from "next/link";
 
 export default function Home({ children }) {
@@ -12,19 +12,19 @@ export default function Home({ children }) {
       <div className="flex justify-center my-5">
         <Tabs defaultValue="">
           <TabsList>
-            <Link href={"Students"}>
+            <Link href={"./Students"}>
               <TabsTrigger value="Students">Students</TabsTrigger>
             </Link>
-            <Link href={"Trainers"}>
+            <Link href={"./Trainers"}>
               <TabsTrigger value="Trainers">Trainers</TabsTrigger>
             </Link>
-            <Link href={"Batches"}>
+            <Link href={"./Batches"}>
               <TabsTrigger value="Batches">Batches</TabsTrigger>
             </Link>
-            <Link href={"Dashboard"}>
+            <Link href={"./Dashboard"}>
               <TabsTrigger value="Dashboard">Dashboard</TabsTrigger>
             </Link>
-            <Link href={"Courses"}>
+            <Link href={"./Courses"}>
               <TabsTrigger value="Courses">Courses</TabsTrigger>
             </Link>
           </TabsList>
