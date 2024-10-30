@@ -1,8 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
 import {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -33,35 +36,49 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-// Sample data
 const data = [
   {
-    id: "1",
-    batchName: "Batch A",
-    status: "ongoing",
-    trainer: "John Doe",
-    noOfStudents: 25,
-    course: "Web and App Development",
+    Gender: "Male",
+    CNIC: "12345-6789012-3",
+    Email: "Azizbeluch@lms.com",
+    FullName: "Abdul Aziz",
+    Education: "Intermediate",
+    Address: "124 main street",
   },
   {
-    id: "2",
-    batchName: "Batch B",
-    status: "pending",
-    trainer: "Jane Smith",
-    noOfStudents: 20,
-    course: "App Development",
+    Gender: "Male",
+    CNIC: "22345-6789012-4",
+    Email: "sameerahmed@lms.com",
+    FullName: "Sameer Ahmed",
+    Education: "BS Computer Science",
+    Address: "224 main street",
   },
   {
-    id: "3",
-    batchName: "Batch C",
-    status: "completed",
-    trainer: "Alice Johnson",
-    noOfStudents: 30,
-    course: "Python Development",
+    Gender: "Male",
+    CNIC: "32345-6789012-3",
+    Email: "zaidbeluche@lms.com",
+    FullName: "Zaid Baluch",
+    Education: "BS Software Engineer",
+    Address: "224 main street",
+  },
+  {
+    Gender: "Male",
+    CNIC: "42345-6789012-3",
+    Email: "murtazabeluch@lms.com",
+    FullName: "Ghulam Murtaza",
+    Education: "Bachelor in Pharmacy",
+    Address: "424 main street",
+  },
+  {
+    Gender: "Male",
+    CNIC: "52345-6789012-3",
+    Email: "jalalanwer@lms.com",
+    FullName: "Jalal Anwer",
+    Education: "M-B-B-S",
+    Address: "125 main street",
   },
 ];
 
-// Define columns
 export const columns = [
   {
     id: "select",
@@ -86,56 +103,66 @@ export const columns = [
     enableHiding: false,
   },
   {
-    accessorKey: "batchName",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Batch Name
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => <div>{row.getValue("batchName")}</div>,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "FullName",
+    header: "FullName",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <div className="capitalize">{row.getValue("FullName")}</div>
     ),
   },
   {
-    accessorKey: "trainer",
-    header: "Trainer",
-    cell: ({ row }) => <div>{row.getValue("trainer")}</div>,
+    accessorKey: "Gender",
+    header: "Gender",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("Gender")}</div>
+    ),
   },
   {
-    accessorKey: "noOfStudents",
-    header: () => <div className="text-right">No. of Students</div>,
-    cell: ({ row }) => {
-      const students = row.getValue("noOfStudents");
-      return <div className="text-right font-medium">{students}</div>;
+    accessorKey: "Education",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Education
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
     },
+    cell: ({ row }) => <div>{row.getValue("Education")}</div>,
   },
   {
-    accessorKey: "course",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Course
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
+    accessorKey: "Address",
+    header: "Address",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("Address")}</div>
     ),
-    cell: ({ row }) => <div>{row.getValue("course")}</div>,
+  },
+  {
+    accessorKey: "CNIC",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          CNIC
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div>{row.getValue("CNIC")}</div>,
+  },
+  {
+    accessorKey: "Email",
+    header: () => <div>Email</div>,
+    cell: ({ row }) => <div>{row.getValue("Email")}</div>,
   },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const batch = row.original;
+      const Student = row.original;
 
       return (
         <DropdownMenu>
@@ -148,9 +175,9 @@ export const columns = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(batch.id)}
+              onClick={() => navigator.clipboard.writeText(Student.FullName)}
             >
-              Copy Batch Name
+              Copy Student Name
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>See Details</DropdownMenuItem>
@@ -162,12 +189,11 @@ export const columns = [
   },
 ];
 
-// BatchesTable component
-export function BatchesTable() {
-  const [sorting, setSorting] = useState([]);
-  const [columnFilters, setColumnFilters] = useState([]);
-  const [columnVisibility, setColumnVisibility] = useState({});
-  const [rowSelection, setRowSelection] = useState({});
+export default function StudentTable() {
+  const [sorting, setSorting] = React.useState([]);
+  const [columnFilters, setColumnFilters] = React.useState([]);
+  const [columnVisibility, setColumnVisibility] = React.useState({});
+  const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
     data,
@@ -189,24 +215,17 @@ export function BatchesTable() {
   });
 
   return (
-    <div className="w-full">
+    <div>
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter by Batch Name..."
-          value={table.getColumn("batchName")?.getFilterValue() ?? ""}
+          placeholder="Filter Courses..."
+          value={table.getColumn("Course")?.getFilterValue() ?? ""}
           onChange={event =>
-            table.getColumn("batchName")?.setFilterValue(event.target.value)
+            table.getColumn("Course")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
-        <Input
-          placeholder="Filter by Course Name..."
-          value={table.getColumn("course")?.getFilterValue() ?? ""}
-          onChange={event =>
-            table.getColumn("course")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm ml-2"
-        />
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

@@ -1,30 +1,25 @@
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/app/components/ui/Tabs";
 import Link from "next/link";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home({ children }) {
   return (
     <div>
-      <div className="flex justify-center my-5">
-        <Tabs defaultValue="">
-          <TabsList>
-            <Link href={"./Students"}>
-              <TabsTrigger value="Students">Students</TabsTrigger>
-            </Link>
-            <Link href={"./Trainers"}>
-              <TabsTrigger value="Trainers">Trainers</TabsTrigger>
-            </Link>
-            <Link href={"./Batches"}>
-              <TabsTrigger value="Batches">Batches</TabsTrigger>
-            </Link>
-            <Link href={"./Dashboard"}>
+      <div className="flex justify-center">
+        <Tabs>
+          <TabsList className="w-dvw ">
+            <Link href={"/admin/Dashboard"}>
               <TabsTrigger value="Dashboard">Dashboard</TabsTrigger>
             </Link>
-            <Link href={"./Courses"}>
+            <Link href={"/admin/Students"}>
+              <TabsTrigger value="Students">Students</TabsTrigger>
+            </Link>
+            <Link href={"/admin/Trainers"}>
+              <TabsTrigger value="Trainers">Trainers</TabsTrigger>
+            </Link>
+            <Link href={"/admin/Batches"}>
+              <TabsTrigger value="Batches">Batches</TabsTrigger>
+            </Link>
+            <Link href={"/admin/Courses"}>
               <TabsTrigger value="Courses">Courses</TabsTrigger>
             </Link>
           </TabsList>

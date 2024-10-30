@@ -1,7 +1,14 @@
-import React from "react";
+import StudentTable from "@/components/DataTable/StudentTable";
+import { StudentDialog } from "@/components/Dialog/StudentDialog";
 
-const Trainers = () => {
-  return <div>Trainers</div>;
-};
-
-export default Trainers;
+export default function Courses() {
+  return (
+    <div className="min-h-screen p-10">
+      <div className="flex justify-between my-2">
+        <h1 className="text-5xl font-bold text-center">Students</h1>
+        <StudentDialog />
+      </div>
+      <StudentTable />
+    </div>
+  );
+}
