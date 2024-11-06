@@ -32,7 +32,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function StudentDialog() {
+export function TrainersDialog() {
   const [open, setOpen] = React.useState(false);
   const isDesktop = true;
 
@@ -40,16 +40,16 @@ export function StudentDialog() {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Add Student</Button>
+          <Button variant="outline">Add Trainers</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Add Student</DialogTitle>
+            <DialogTitle>Add Trainers</DialogTitle>
             {/* <DialogDescription>
 
             </DialogDescription> */}
           </DialogHeader>
-          <StudentForm />
+          <TrainersForm />
         </DialogContent>
       </Dialog>
     );
@@ -58,14 +58,14 @@ export function StudentDialog() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline">Add Student</Button>
+        <Button variant="outline">Add Trainers</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Add Student</DrawerTitle>
-          <DrawerDescription>You can add New Student here.</DrawerDescription>
+          <DrawerTitle>Add Trainers</DrawerTitle>
+          <DrawerDescription>You can add New Trainers here.</DrawerDescription>
         </DrawerHeader>
-        <StudentForm className="px-4" />
+        <TrainersForm className="px-4" />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
@@ -76,7 +76,7 @@ export function StudentDialog() {
   );
 }
 
-function StudentForm({ className }) {
+function TrainersForm({ className }) {
   return (
     <form className={cn("grid items-start gap-4", className)}>
       <div className="grid gap-2">
@@ -112,7 +112,7 @@ function StudentForm({ className }) {
         <Input required id="CNIC" defaultValue="" />
       </div>
 
-      <Button type="submit">Add Student</Button>
+      <Button type="submit">Add Trainers</Button>
     </form>
   );
 }
